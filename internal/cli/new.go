@@ -25,14 +25,15 @@ var newCmd = &cobra.Command{
 		}
 
 		CheckError(checkIfDirIsEmpty("."))
-		CheckError(checkIfDirExists("src"))
-		CheckError(checkIfDirExists("data"))
-		CheckError(checkIfDirExists("result"))
+		CheckError(checkIfDirExists("./cfs"))
+		CheckError(checkIfDirExists("./cfs/src"))
+		CheckError(checkIfDirExists("./cfs/data"))
+		CheckError(checkIfDirExists("./cfs/result"))
 
 		log.WithFields(log.Fields{
-			"Dir": "./src"}).
+			"Dir": "./cfs/src"}).
 			Info("Creating directory")
-		err := os.MkdirAll("./src", 0755)
+		err := os.MkdirAll("./cfs/src", 0755)
 		CheckError(err)
 
 		log.WithFields(log.Fields{

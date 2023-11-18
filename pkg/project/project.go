@@ -115,7 +115,7 @@ processid = os.environ.get("COLONIES_PROCESS_ID")
 
 print(processid)
     `
-	srcFilename := "./src/main.py"
+	srcFilename := "./cfs/src/main.py"
 	_, err = os.Stat(srcFilename)
 	if err == nil {
 		return errors.New(srcFilename + " already exists")
