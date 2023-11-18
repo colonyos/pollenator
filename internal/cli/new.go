@@ -44,7 +44,7 @@ var newCmd = &cobra.Command{
 		CheckError(err)
 
 		log.WithFields(log.Fields{
-			"Dir": "./cfs/results"}).
+			"Dir": "./cfs/result"}).
 			Info("Creating directory")
 		err = os.MkdirAll("./cfs/result", 0755)
 

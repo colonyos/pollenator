@@ -1,12 +1,10 @@
 package cli
 
 import (
-	"fmt"
 	"io/ioutil"
 
 	"github.com/colonyos/colonies/pkg/client"
-	"github.com/colonyos/colonies/pkg/core"
-	"github.com/colonyos/colonies/pkg/fs"
+	"github.com/colonyos/pollinator/pkg/colonies"
 	"github.com/colonyos/pollinator/pkg/project"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
@@ -15,6 +13,8 @@ import (
 
 func init() {
 	rootCmd.AddCommand(runCmd)
+	runCmd.Flags().BoolVarP(&Follow, "follow", "f", false, "Follow process")
+	runCmd.Flags().IntVarP(&Count, "count", "", 100, "Number of messages to fetch")
 }
 
 var runCmd = &cobra.Command{
@@ -38,30 +38,30 @@ var runCmd = &cobra.Command{
 
 		client := client.CreateColoniesClient(ColoniesServerHost, ColoniesServerPort, ColoniesInsecure, ColoniesSkipTLSVerify)
 
-		log.Debug("Starting a file storage client")
-		fsClient, err := fs.CreateFSClient(client, ColonyID, ExecutorPrvKey)
+		// Sync all directories
+		err = colonies.SyncDir("/src", client, ColonyID, ExecutorPrvKey, proj, true)
+		CheckError(err)
+		err = colonies.SyncDir("/data", client, ColonyID, ExecutorPrvKey, proj, true)
 		CheckError(err)
 
-		keepLocal := true
-		label := "/pollinator/" + proj.ProjectID + "/src"
-		syncPlans, err := fsClient.CalcSyncPlans("./cfs/src", label, keepLocal)
+		snapshotID, err := colonies.CreateSrcSnapshot(client, ColonyID, ExecutorPrvKey, proj)
 		CheckError(err)
-
-		fmt.Println(syncPlans)
-
-		// Create snapshot
-		snapshotID := core.GenerateRandomID()
-
-		log.WithFields(log.Fields{
-			"SnapshotID": snapshotID,
-			"Dir":        "./cfs/src"}).
-			Info("Creating snapshot")
 
 		log.Info("Generating function spec")
-		funcSpec := project.CreateFuncSpec(ColonyID, proj, snapshotID)
+		funcSpec := colonies.CreateFuncSpec(ColonyID, proj, snapshotID)
 		CheckError(err)
-		jsonString, err := funcSpec.ToJSON()
+
+		addedProcess, err := client.Submit(funcSpec, ExecutorPrvKey)
 		CheckError(err)
-		fmt.Println(jsonString)
+
+		log.WithFields(log.Fields{"ProcessID": addedProcess.ID}).Info("Process submitted")
+
+		if Follow {
+			err = colonies.Follow(client, addedProcess, ExecutorPrvKey, Count)
+			CheckError(err)
+			err = colonies.SyncDir("/result", client, ColonyID, ExecutorPrvKey, proj, false)
+			CheckError(err)
+		}
+
 	},
 }

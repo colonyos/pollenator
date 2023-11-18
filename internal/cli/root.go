@@ -20,6 +20,8 @@ var ColonyID string
 var ExecutorID string
 var ExecutorPrvKey string
 var ExecutorType string
+var Follow bool
+var Count int
 
 func init() {
 	rootCmd.PersistentFlags().BoolVarP(&Verbose, "verbose", "v", false, "verbose output")

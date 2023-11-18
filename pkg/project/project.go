@@ -111,10 +111,19 @@ func GenerateProjectData() error {
 
 	src := `import os
 
+projdir = str(os.environ.get("PROJECT_DIR"))
 processid = os.environ.get("COLONIES_PROCESS_ID")
 
-print(processid)
-    `
+file = open(projdir + "/data/hello.txt", 'r')
+contents = file.read()
+print(contents)
+
+result_dir = projdir + "/result/"
+os.makedirs(result_dir, exist_ok=True)
+
+file = open(result_dir + "/result.txt", "w")
+file.write("Hello, World!")
+file.close()`
 	srcFilename := "./cfs/src/main.py"
 	_, err = os.Stat(srcFilename)
 	if err == nil {
