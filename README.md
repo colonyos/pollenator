@@ -6,10 +6,10 @@ much like [Heroku](https://www.heroku.com),
 but is based on a distributed brokering orchestration model and is primarily designed to run batch jobs. 
 While Heroku mainly targets deployment of web applications 
 in the Cloud, Pollinator is designed to simplify job execution across platforms, e.g executing AI computations on 
-HPC (High-Performance Computing), Edge, or Kubernetes platforms. Pollinator is also desgined to ensure uniform workload execution across these diverse platforms.
+HPC (High-Performance Computing), Edge, or Kubernetes platforms. Pollinator is also designed to ensure uniform workload execution across these diverse platforms.
 
 * **Pollinator** is based on [ColonyOS](https://colonyos.io). Using Meta-Orchestration, it can create and run batch jobs over a network of 
-loosly-connected and geographically disperse so-called **Executors**. These Executors, after receiving jobs assignment from a Colonies server, transform the job 
+loosely-connected and geographically disperse so-called **Executors**. These Executors, after receiving jobs assignment from a Colonies server, transform the job 
 instructions (so-called *function specifications*) into a format that is compatible with the underlying system they're connected to, 
 whether it's Kubernetes (K8s) or Slurm. On HPC systems, Docker containers are for example automatically converted to Singularity containers.
 
@@ -18,8 +18,8 @@ login to HPC nodes to run Slurm jobs. It seamlessly synchronizes and transfers d
 user's local filesystem to remote Executors, offering the convenience of a local development environment while harnessing powerful supercomputers 
 and cloud platforms.
 
-*  With **Pollinator**, users are no longer required to have in-depth knowledge of Slurm or Kubernetes systems, speeding up developing and making 
-powerful HPC system available to more people.
+*  With **Pollinator**, users are no longer required to have in-depth knowledge of Slurm or Kubernetes systems, speeding up development and making 
+powerful HPC systems available to more people.
 
 ## How does it work? 
 Pollinator assumes the existance of the directories in the table below.  
@@ -38,12 +38,12 @@ When running a job, Pollinator does the following:
     3. Synchronize the source, data, and result directories to make project file accessible on the remote HPC environment.
     4. Generate a Slurm script to execute the Singularity container, including binding the source, data, and result directories to the container.
     5. Execute and monitor the Slurm job, including uploading all standard outputs and error logs to a Colonies server.
-    6. Close the process by make a request to the Colonies server.
+    6. Close the process by making a request to the Colonies server.
 2. If the job is assigned to a remote Kubernetes Executor:
     1. Synchronize the source, data, and result directories to a shared Persistent Volume.
     2. Generate and deploy a K8s batch job. 
     3. Monitor the execution of the batch job, including uploading logs to a Colonies server.
-    4. Close the process by make a request to the Colonies server.
+    4. Close the process by making a request to the Colonies server.
 
 ## Example
 Let's run some Python code at the [LUMI](https://www.lumi-supercomputer.eu) supercomputer in Finland. First, we need to generate a new Pollinator project.
