@@ -8,7 +8,7 @@ While Heroku mainly targets deployment of web applications
 in the Cloud, Pollinator is designed to simplify job execution across platforms, e.g executing AI computations on 
 HPC (High-Performance Computing), Edge, or Kubernetes platforms. **Pollinator** is also designed to ensure uniform workload execution across these diverse platforms.
 
-* **Pollinator** is based on [ColonyOS](https://colonyos.io). Using Meta-Orchestration, it can create and run batch jobs over a network of 
+* **Pollinator** is based on [ColonyOS](https://colonyos.io), and can create and run batch jobs over a network of 
 loosely-connected and geographically disperse so-called **Executors**. These Executors, after receiving jobs assignment from a Colonies server, transform the job 
 instructions (so-called *function specifications*) into a format that is compatible with the underlying system they're connected to, 
 whether it's Kubernetes (K8s) or Slurm. On HPC systems, Docker containers are for example automatically converted to Singularity containers.
