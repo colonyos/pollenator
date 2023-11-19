@@ -3,7 +3,7 @@
 
 * **Pollinator** is a technology comparable to [Platform-as-a-Service](https://en.wikipedia.org/wiki/Platform_as_a_service) (PaaS), 
 much like [Heroku](https://www.heroku.com), 
-but is based on a distributed brokering orchestration model and is primarily designed to run batch jobs. 
+but is based on a distributed brokering orchestration, and is primarily designed to run batch jobs. 
 While Heroku mainly targets deployment of web applications 
 in the Cloud, Pollinator is designed to simplify job execution across platforms, e.g executing AI computations on 
 HPC (High-Performance Computing), Edge, or Kubernetes platforms. **Pollinator** is also designed to ensure uniform workload execution across these diverse platforms.
