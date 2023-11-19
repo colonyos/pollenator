@@ -22,6 +22,7 @@ var ExecutorPrvKey string
 var ExecutorType string
 var Follow bool
 var Count int
+var DashboardURL string
 
 func init() {
 	rootCmd.PersistentFlags().BoolVarP(&Verbose, "verbose", "v", false, "verbose output")

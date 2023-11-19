@@ -54,14 +54,14 @@ func GenerateProjectConfig(executorType string) error {
 		Nodes:            1,
 		ProcessesPerNode: 1,
 		CPU:              "1000m",
-		Memory:           "1000M",
+		Memory:           "1000Mi",
 		Walltime:         600}
 
 	env := Environment{
 		DockerImage:  "python:3.12-rc-bookworm",
 		RebuildImage: false,
 		Cmd:          "python3",
-		SourceFile:   "src/main.py",
+		SourceFile:   "main.py",
 	}
 
 	projectID := core.GenerateRandomID()
@@ -110,14 +110,27 @@ func GenerateProjectData() error {
 	}
 
 	src := `import os
+import socket
 
+# Print the hostname
+hostname = socket.gethostname()
+print("hostname:", hostname)
+
+# The projdir is the location on the executor where project dirs have been synced
 projdir = str(os.environ.get("PROJECT_DIR"))
+
+# The processid is the unique id of the process where this code will execute at a remove executor
 processid = os.environ.get("COLONIES_PROCESS_ID")
 
+print("projdir:", projdir)
+print("processid:", processid)
+
+# Open the hello.txt file and print the content
 file = open(projdir + "/data/hello.txt", 'r')
 contents = file.read()
 print(contents)
 
+# Write the result to the a file in the result dir
 result_dir = projdir + "/result/"
 os.makedirs(result_dir, exist_ok=True)
 

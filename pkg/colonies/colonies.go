@@ -31,7 +31,7 @@ func SyncDir(dir string, client *client.ColoniesClient, colonyID string, executo
 	}
 
 	if counter == len(syncPlans) {
-		log.WithFields(log.Fields{"Label": label, "SyncDir": "./cfs" + dir}).Info("Synchronizing, nothing to do, already synchronized")
+		log.WithFields(log.Fields{"Label": label, "SyncDir": "./cfs" + dir}).Debug("Synchronizing, nothing to do, already synchronized")
 		return nil
 	}
 
@@ -51,7 +51,7 @@ func CreateSrcSnapshot(client *client.ColoniesClient, colonyID string, executorP
 	if err != nil {
 		return "", err
 	}
-	log.WithFields(log.Fields{"SnapshotID": snapshot.ID, "Label": snapshot.Label}).Info("Creating snapshot")
+	log.WithFields(log.Fields{"SnapshotID": snapshot.ID, "Label": snapshot.Label}).Debug("Creating snapshot")
 
 	return snapshot.ID, nil
 }
@@ -130,7 +130,7 @@ func CreateFuncSpec(colonyID string, project *project.Project, snapshotID string
 }
 
 func Follow(client *client.ColoniesClient, process *core.Process, executorPrvKey string, count int) error {
-	log.WithFields(log.Fields{"ProcessID": process.ID}).Info("Printing logs from process")
+	log.WithFields(log.Fields{"ProcessID": process.ID}).Debug("Printing logs from process")
 	var lastTimestamp int64
 	lastTimestamp = 0
 	for {

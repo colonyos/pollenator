@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"fmt"
 	"io/ioutil"
 
 	"github.com/colonyos/colonies/pkg/client"
@@ -47,14 +48,18 @@ var runCmd = &cobra.Command{
 		snapshotID, err := colonies.CreateSrcSnapshot(client, ColonyID, ExecutorPrvKey, proj)
 		CheckError(err)
 
-		log.Info("Generating function spec")
+		log.Debug("Generating function spec")
 		funcSpec := colonies.CreateFuncSpec(ColonyID, proj, snapshotID)
 		CheckError(err)
 
 		addedProcess, err := client.Submit(funcSpec, ExecutorPrvKey)
 		CheckError(err)
 
+		url := DashboardURL + "/process?processid=" + addedProcess.ID
+		link := fmt.Sprintf("\033]8;;%s\a%s\033]8;;\a\n", url, url)
+
 		log.WithFields(log.Fields{"ProcessID": addedProcess.ID}).Info("Process submitted")
+		log.Info("Follow process at " + link)
 
 		if Follow {
 			err = colonies.Follow(client, addedProcess, ExecutorPrvKey, Count)
@@ -62,6 +67,5 @@ var runCmd = &cobra.Command{
 			err = colonies.SyncDir("/result", client, ColonyID, ExecutorPrvKey, proj, false)
 			CheckError(err)
 		}
-
 	},
 }

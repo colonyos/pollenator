@@ -9,3 +9,6 @@ GOLDFLAGS += -X 'main.BuildTime=$(BUILDTIME)'
 
 build:
 	@CGO_ENABLED=0 go build -ldflags="-s -w $(GOLDFLAGS)" -o ./bin/pollinator ./cmd/main.go
+
+install:
+	cp ./bin/pollinator /usr/local/bin

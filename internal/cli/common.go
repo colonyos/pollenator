@@ -86,6 +86,8 @@ func parseEnv() {
 		ExecutorPrvKey, err = keychain.GetPrvKey(ExecutorID)
 		CheckError(err)
 	}
+
+	DashboardURL = os.Getenv("COLONYOS_DASHBOARD_URL")
 }
 
 func CheckError(err error) {
