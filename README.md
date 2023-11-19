@@ -1,24 +1,24 @@
 # Introduction
 > A pollinator is an organism that transfers pollen between flowers, aiding in plant reproduction and biodiversity. -- ChatGPT
 
-* Pollinator is a technology comparable to [Platform-as-a-Service](https://en.wikipedia.org/wiki/Platform_as_a_service) (PaaS), 
+* **Pollinator** is a technology comparable to [Platform-as-a-Service](https://en.wikipedia.org/wiki/Platform_as_a_service) (PaaS), 
 much like [Heroku](https://www.heroku.com), 
 but is based on a distributed brokering orchestration model and is primarily designed to run batch jobs. 
 While Heroku mainly targets deployment of web applications 
 in the Cloud, Pollinator is designed to simplify job execution across platforms, e.g executing AI computations on 
 HPC (High-Performance Computing), Edge, or Kubernetes platforms. Pollinator is also desgined to ensure uniform workload execution across these diverse platforms.
 
-* Pollinator builds on [ColonyOS](https://colonyos.io). Using Meta-Orchestration, it can create and run batch jobs over a network of 
+* **Pollinator** is based on [ColonyOS](https://colonyos.io). Using Meta-Orchestration, it can create and run batch jobs over a network of 
 loosly-connected and geographically disperse so-called **Executors**. These Executors, after receiving jobs assignment from a Colonies server, transform the job 
 instructions (so-called *function specifications*) into a format that is compatible with the underlying system they're connected to, 
 whether it's Kubernetes (K8s) or Slurm. On HPC systems, Docker containers are for example automatically converted to Singularity containers.
 
-* Pollinator significantly simplifies interactions with HPC or Kubernetes systems. For instance, it completely eliminates the need to manually
+* **Pollinator** significantly simplifies interactions with HPC or Kubernetes systems. For instance, it completely eliminates the need to manually
 login to HPC nodes to run Slurm jobs. It seamlessly synchronizes and transfers data from the 
 user's local filesystem to remote Executors, offering the convenience of a local development environment while harnessing powerful supercomputers 
 and cloud platforms.
 
-*  With Pollinator, users are no longer required to have in-depth knowledge of Slurm or Kubernetes systems, speeding up developing and making 
+*  With **Pollinator**, users are no longer required to have in-depth knowledge of Slurm or Kubernetes systems, speeding up developing and making 
 powerful HPC system available to more people.
 
 ## How does it work? 
@@ -83,7 +83,7 @@ pollinator new -e lumi-standard-hpcexecutor
 ```
 
 This will generate a **project.yaml** file and the **src**, **data**, **result** directories. It also generates some sample code in Python. 
-Note that any languga can be supported by specifing another Docker image and setting the *cmd* option in the **project.yaml**.
+Note that any language can be supported by specifing another Docker image and setting the *cmd* option in the **project.yaml**.
 
 ```console
 INFO[0000] Creating directory     Dir=./cfs/src
