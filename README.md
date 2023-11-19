@@ -1,13 +1,13 @@
 # Introduction
 > A pollinator is an organism that transfers pollen between flowers, aiding in plant reproduction and biodiversity. -- ChatGPT
 
-*May be we need some kind of software that can transfers code between execution environments, aiding code execution and handle diverse software stacks?*
+*"May be we need some kind of software that can transfers code between execution environments, aiding code execution and handle diverse software stacks?"*
 
 * **Pollinator** is a technology comparable to [Platform-as-a-Service](https://en.wikipedia.org/wiki/Platform_as_a_service) (PaaS), 
 much like [Heroku](https://www.heroku.com), 
-but is based on a distributed brokering orchestration, and is primarily designed to run batch jobs. 
+but uses broker-based orchestration to execute batch jobs across platforms. 
 While Heroku mainly targets deployment of web applications 
-in the Cloud, Pollinator is designed to simplify job execution across platforms, e.g executing AI computations on 
+in the Cloud, Pollinator is designed to simplify job execution, e.g executing AI computations on 
 HPC (High-Performance Computing), Edge, or Kubernetes platforms. **Pollinator** is also designed to ensure uniform workload execution across these diverse platforms.
 
 * **Pollinator** is based on [ColonyOS](https://colonyos.io), and can create and run batch jobs over a network of 
