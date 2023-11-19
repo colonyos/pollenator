@@ -131,7 +131,7 @@ environment:
 ### Run the code
 Now, run the code.
 ```console
-pollinator run
+pollinator run --follow
 ```
 
 We can now see the hostname of all the host that run the code.
