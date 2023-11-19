@@ -1,6 +1,8 @@
 # Introduction
 > A pollinator is an organism that transfers pollen between flowers, aiding in plant reproduction and biodiversity. -- ChatGPT
 
+*May be we need some kind of software that can transfers code between execution environments, aiding code execution and handle diverse software stacks?*
+
 * **Pollinator** is a technology comparable to [Platform-as-a-Service](https://en.wikipedia.org/wiki/Platform_as_a_service) (PaaS), 
 much like [Heroku](https://www.heroku.com), 
 but is based on a distributed brokering orchestration, and is primarily designed to run batch jobs. 
@@ -113,7 +115,7 @@ To run code on 10 nodes at LUMI, we need to update the **project.yaml** file.
 projectid: 4e3f0f068cdb08f78ba3992bf5ccb9f5eb321125fa696c477eb387d37ab5c15f
 conditions:
   executorType: lumi-small-hpcexecutor
-  nodes: 1
+  nodes: 10
   processesPerNode: 1
   cpu: 1000m
   mem: 1000Mi
