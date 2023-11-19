@@ -1,7 +1,7 @@
 # Introduction
 > A pollinator is an organism that transfers pollen between flowers, aiding in plant reproduction and biodiversity. -- ChatGPT
 
-*"May be we need some kind of software that transfers code between execution environments, aiding in plattform code execution and diverse software stacks?"*
+*"May be we need some kind of software that transfers code between execution environments, aiding in plattform code execution and allowing for diverse software stacks?"*
 
 * **Pollinator** is a technology comparable to [Platform-as-a-Service](https://en.wikipedia.org/wiki/Platform_as_a_service) (PaaS), 
 much like [Heroku](https://www.heroku.com), 
