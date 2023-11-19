@@ -6,7 +6,7 @@ much like [Heroku](https://www.heroku.com),
 but is based on a distributed brokering orchestration model and is primarily designed to run batch jobs. 
 While Heroku mainly targets deployment of web applications 
 in the Cloud, Pollinator is designed to simplify job execution across platforms, e.g executing AI computations on 
-HPC (High-Performance Computing), Edge, or Kubernetes platforms. Pollinator is also designed to ensure uniform workload execution across these diverse platforms.
+HPC (High-Performance Computing), Edge, or Kubernetes platforms. **Pollinator** is also designed to ensure uniform workload execution across these diverse platforms.
 
 * **Pollinator** is based on [ColonyOS](https://colonyos.io). Using Meta-Orchestration, it can create and run batch jobs over a network of 
 loosely-connected and geographically disperse so-called **Executors**. These Executors, after receiving jobs assignment from a Colonies server, transform the job 
@@ -15,8 +15,8 @@ whether it's Kubernetes (K8s) or Slurm. On HPC systems, Docker containers are fo
 
 * **Pollinator** significantly simplifies interactions with HPC or Kubernetes systems. For instance, it completely eliminates the need to manually
 login to HPC nodes to run Slurm jobs. It seamlessly synchronizes and transfers data from the 
-user's local filesystem to remote Executors, offering the convenience of a local development environment while harnessing powerful supercomputers 
-and cloud platforms.
+user's local filesystem to remote Executors, *offering the convenience of a local development environment while harnessing powerful supercomputers 
+and cloud platforms.*
 
 *  With **Pollinator**, users are no longer required to have in-depth knowledge of Slurm or Kubernetes systems, speeding up development and making 
 powerful HPC systems available to more people.
@@ -26,9 +26,9 @@ Pollinator assumes the existance of the directories in the table below.
 
 | Directory    | Purpose                                         | Synchronizion strategy                                                      |
 |--------------|-------------------------------------------------|-----------------------------------------------------------------------------|
-| ./cfs/src    | Contains source code or binaries to be executed | Will be synchronized before execution                                       |
-| ./cfs/data   | Datasets or other data is stored here           | Will be synchronized before execution, but not removed after job completion |
-| ./cfs/result | Produced data can be stored here.               | Will be synchronized after execution                                        |
+| ./cfs/src    | Contains source code or binaries to be executed | Will be synchronized from local computer to remote executor before execution                           |
+| ./cfs/data   | Datasets or other data is stored here           | Will be synchronized from local computer before execution, but not removed after job completion        |
+| ./cfs/result | Produced data can be stored here.               | Will be synchronized from remote executor to local computer after execution                            |
 
 When running a job, Pollinator does the following:
 1. Synchronize the source, data, and result directories to the ColonyOS meta-filesystem.
