@@ -42,6 +42,8 @@ and cloud platforms.
 *  With **Pollinator**, users are no longer required to have in-depth knowledge of Slurm or Kubernetes systems, speeding up development and making 
 powerful HPC systems available to more people.
 
+![Architecture](docs/arch.png)
+
 ## How does it work? 
 Pollinator assumes the existance of the directories in the table below.  
 
