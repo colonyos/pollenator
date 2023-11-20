@@ -1,10 +1,10 @@
 # Introduction
 > A pollinator is an organism that transfers pollen between flowers, aiding in plant reproduction and biodiversity. -- ChatGPT
 
-*"May be we need some kind of software that transfers code between execution environments, aiding in plattform code execution and supporting diverse software stacks?"*
+*"May be we need some kind of software that transfers code between execution environments, aiding in platform code execution and supporting diverse software stacks?"*
 
 ## Quick usage 
-Execute this code on your **local computer** to execute code remotely on the LUMI supercomputer.
+Execute this code on your **local computer** to execute main.py **remotely on the LUMI supercomputer**.
 
 ```console
 mkdir test; cd test
@@ -15,16 +15,16 @@ pollinator run --follow
 
 ```console
 Uploading main.py 100% [===============] (143 kB/s)
-INFO[0000] Process submitted                             ProcessID=4ca07ca99b670e4758fd587bab6adb4322189e6f3237c816588a4715a1bc34d9
+INFO[0000] Process submitted               ProcessID=4ca07ca99b670e4758fd587bab6adb4322189e6f3237c816588a4715a1bc34d9
 INFO[0000] Follow process at https://dashboard.colonyos.io/process?processid=4ca07ca99b670e4758fd587bab6adb4322189e6f3237c816588a4715a1bc34d9
 LUMI Supercomputer says Hi!
-INFO[0007] Process finished successfully                 ProcessID=4ca07ca99b670e4758fd587bab6adb4322189e6f3237c816588a4715a1bc34d9
+INFO[0007] Process finished successfully   ProcessID=4ca07ca99b670e4758fd587bab6adb4322189e6f3237c816588a4715a1bc34d9
 ```
 
 # What is Pollinator?
-* **Pollinator** is a technology comparable to [Platform-as-a-Service](https://en.wikipedia.org/wiki/Platform_as_a_service) (PaaS), 
+* **Pollinator** is a [Platform-as-a-Service](https://en.wikipedia.org/wiki/Platform_as_a_service) (PaaS) tool, 
 much like [Heroku](https://www.heroku.com), 
-but uses broker-based orchestration to execute batch jobs across platforms. 
+but uses broker-based orchestration to execute containers across platforms. 
 While Heroku mainly targets deployment of web applications 
 in the Cloud, Pollinator is designed to simplify job execution, e.g executing AI computations on 
 HPC (High-Performance Computing), Edge, or Kubernetes platforms. **Pollinator** is also designed to ensure uniform workload execution across these diverse platforms.
