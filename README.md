@@ -3,6 +3,25 @@
 
 *"May be we need some kind of software that transfers code between execution environments, aiding in plattform code execution and supporting diverse software stacks?"*
 
+## Quick usage 
+Execute this code on your **local computer** to execute code remotely on the LUMI supercomputer.
+
+```console
+mkdir test; cd test
+pollinator new -e lumi-small-hpcexecutor
+echo "print('LUMI Supercomputer says Hi!')" > ./cfs/src/main.py
+pollinator run --follow
+```
+
+```console
+Uploading main.py 100% [===============] (143 kB/s)
+INFO[0000] Process submitted                             ProcessID=4ca07ca99b670e4758fd587bab6adb4322189e6f3237c816588a4715a1bc34d9
+INFO[0000] Follow process at https://dashboard.colonyos.io/process?processid=4ca07ca99b670e4758fd587bab6adb4322189e6f3237c816588a4715a1bc34d9
+LUMI Supercomputer says Hi!
+INFO[0007] Process finished successfully                 ProcessID=4ca07ca99b670e4758fd587bab6adb4322189e6f3237c816588a4715a1bc34d9
+```
+
+# What is Pollinator?
 * **Pollinator** is a technology comparable to [Platform-as-a-Service](https://en.wikipedia.org/wiki/Platform_as_a_service) (PaaS), 
 much like [Heroku](https://www.heroku.com), 
 but uses broker-based orchestration to execute batch jobs across platforms. 
@@ -17,8 +36,8 @@ whether it's Kubernetes (K8s) or Slurm. On HPC systems, Docker containers are fo
 
 * **Pollinator** significantly simplifies interactions with HPC or Kubernetes systems. For instance, it completely eliminates the need to manually
 login to HPC nodes to run Slurm jobs. It seamlessly synchronizes and transfers data from the 
-user's local filesystem to remote Executors, *offering the convenience of a local development environment while harnessing powerful supercomputers 
-and cloud platforms.*
+user's local filesystem to remote Executors, offering the convenience of a local development environment while harnessing powerful supercomputers 
+and cloud platforms.
 
 *  With **Pollinator**, users are no longer required to have in-depth knowledge of Slurm or Kubernetes systems, speeding up development and making 
 powerful HPC systems available to more people.
@@ -34,14 +53,15 @@ Pollinator assumes the existance of the directories in the table below.
 
 When running a job, Pollinator does the following:
 1. Synchronize the source, data, and result directories to the ColonyOS meta-filesystem.
-2. Automatically generate and submit a ColonyOS function specification to a Colonies server.
-2. If the job is assigned to an HPC Executor:
+2. Generate a ColonyOS function specification based on the **project.yaml** file.
+3. Automatically generate and submit a ColonyOS function specification to a Colonies server.
+4. If the job is assigned to an HPC Executor:
     1. Pull the Docker container to the HPC environment, and convert it to a Singularity container.
     3. Synchronize the source, data, and result directories to make project file accessible on the remote HPC environment.
     4. Generate a Slurm script to execute the Singularity container, including binding the source, data, and result directories to the container.
     5. Execute and monitor the Slurm job, including uploading all standard outputs and error logs to a Colonies server.
     6. Close the process by making a request to the Colonies server.
-2. If the job is assigned to a remote Kubernetes Executor:
+5. If the job is assigned to a remote Kubernetes Executor:
     1. Synchronize the source, data, and result directories to a shared Persistent Volume.
     2. Generate and deploy a K8s batch job. 
     3. Monitor the execution of the batch job, including uploading logs to a Colonies server.
@@ -77,7 +97,7 @@ mkdir lumi
 cd lumi
 ```
 
-### Create an new Pollintor project
+### Create a new Pollintor project
 First, we need to generate a new Pollinator project.
 
 ```console
