@@ -26,8 +26,8 @@ INFO[0007] Process finished successfully   ProcessID=4ca07ca99b670e4758fd587bab6
 much like [Heroku](https://www.heroku.com), 
 but uses broker-based orchestration to execute containers across platforms. 
 While Heroku mainly targets deployment of web applications 
-in the Cloud, Pollinator is designed to simplify job execution, e.g executing AI computations on 
-HPC (High-Performance Computing), Edge, or Kubernetes platforms. **Pollinator** is also designed to ensure uniform workload execution across these diverse platforms.
+in the Cloud, Pollinator is designed to simplify and streamline job execution across platforms, e.g executing AI computations on 
+HPC, Edge, or Kubernetes platforms. **Pollinator** is also designed to ensure uniform workload execution across these diverse platforms.
 
 * **Pollinator** is based on [ColonyOS](https://colonyos.io), and can create and run batch jobs over a network of 
 loosely-connected and geographically disperse so-called **Executors**. These Executors, after receiving jobs assignment from a Colonies server, transform the job 
