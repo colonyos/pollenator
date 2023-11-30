@@ -11,8 +11,8 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func SyncDir(dir string, client *client.ColoniesClient, colonyID string, executorPrvKey string, proj *project.Project, keepLocal bool) error {
-	fsClient, err := fs.CreateFSClient(client, colonyID, executorPrvKey)
+func SyncDir(dir string, client *client.ColoniesClient, colonyName string, executorPrvKey string, proj *project.Project, keepLocal bool) error {
+	fsClient, err := fs.CreateFSClient(client, colonyName, executorPrvKey)
 	if err != nil {
 		return err
 	}
@@ -36,7 +36,7 @@ func SyncDir(dir string, client *client.ColoniesClient, colonyID string, executo
 	}
 
 	for _, syncPlan := range syncPlans {
-		err = fsClient.ApplySyncPlan(colonyID, syncPlan)
+		err = fsClient.ApplySyncPlan(colonyName, syncPlan)
 		if err != nil {
 			return err
 		}
@@ -45,9 +45,9 @@ func SyncDir(dir string, client *client.ColoniesClient, colonyID string, executo
 	return nil
 }
 
-func CreateSrcSnapshot(client *client.ColoniesClient, colonyID string, executorPrvKey string, proj *project.Project) (string, error) {
+func CreateSrcSnapshot(client *client.ColoniesClient, colonyName string, executorPrvKey string, proj *project.Project) (string, error) {
 	snapshotID := core.GenerateRandomID()
-	snapshot, err := client.CreateSnapshot(colonyID, "/pollinator/"+proj.ProjectID+"/src", snapshotID, executorPrvKey)
+	snapshot, err := client.CreateSnapshot(colonyName, "/pollinator/"+proj.ProjectID+"/src", snapshotID, executorPrvKey)
 	if err != nil {
 		return "", err
 	}
@@ -56,7 +56,7 @@ func CreateSrcSnapshot(client *client.ColoniesClient, colonyID string, executorP
 	return snapshot.ID, nil
 }
 
-func CreateFuncSpec(colonyID string, project *project.Project, snapshotID string) *core.FunctionSpec {
+func CreateFuncSpec(colonyName string, project *project.Project, snapshotID string) *core.FunctionSpec {
 	maxRetries := 3
 	env := make(map[string]string)
 	env["PROJECT_DIR"] = "/cfs/" + project.ProjectID
@@ -106,7 +106,7 @@ func CreateFuncSpec(colonyID string, project *project.Project, snapshotID string
 		"execute",
 		args,
 		kwargs,
-		colonyID,
+		colonyName,
 		[]string{},
 		project.Conditions.ExecutorType,
 		maxWaitTime,

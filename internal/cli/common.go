@@ -6,7 +6,6 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/colonyos/colonies/pkg/security"
 	"github.com/colonyos/pollinator/pkg/build"
 	log "github.com/sirupsen/logrus"
 )
@@ -62,29 +61,18 @@ func parseEnv() {
 		Verbose = false
 	}
 
-	if ColonyID == "" {
-		ColonyID = os.Getenv("COLONIES_COLONY_ID")
+	if ColonyName == "" {
+		ColonyName = os.Getenv("COLONIES_COLONY_NAME")
 	}
-	if ColonyID == "" {
-		CheckError(errors.New("Unknown Colony Id"))
-	}
-
-	if ExecutorID == "" {
-		ExecutorID = os.Getenv("COLONIES_EXECUTOR_ID")
-	}
-	if ExecutorID == "" {
-		CheckError(errors.New("Unknown Executor Id"))
+	if ColonyName == "" {
+		CheckError(errors.New("Unknown Colony name"))
 	}
 
-	keychain, err := security.CreateKeychain(KEYCHAIN_PATH)
-	CheckError(err)
-
-	if ExecutorPrvKey == "" {
-		ExecutorPrvKey = os.Getenv("COLONIES_EXECUTOR_PRVKEY")
+	if PrvKey == "" {
+		PrvKey = os.Getenv("COLONIES_PRVKEY")
 	}
-	if ExecutorPrvKey == "" {
-		ExecutorPrvKey, err = keychain.GetPrvKey(ExecutorID)
-		CheckError(err)
+	if PrvKey == "" {
+		CheckError(errors.New("Unkown private key"))
 	}
 
 	DashboardURL = os.Getenv("COLONYOS_DASHBOARD_URL")

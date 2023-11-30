@@ -16,9 +16,8 @@ var ColoniesServerPort int
 var ColoniesInsecure bool
 var ColoniesSkipTLSVerify bool
 var ColoniesUseTLS bool
-var ColonyID string
-var ExecutorID string
-var ExecutorPrvKey string
+var ColonyName string
+var PrvKey string
 var ExecutorType string
 var Follow bool
 var Count int

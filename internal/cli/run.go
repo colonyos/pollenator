@@ -40,19 +40,19 @@ var runCmd = &cobra.Command{
 		client := client.CreateColoniesClient(ColoniesServerHost, ColoniesServerPort, ColoniesInsecure, ColoniesSkipTLSVerify)
 
 		// Sync all directories
-		err = colonies.SyncDir("/src", client, ColonyID, ExecutorPrvKey, proj, true)
+		err = colonies.SyncDir("/src", client, ColonyName, PrvKey, proj, true)
 		CheckError(err)
-		err = colonies.SyncDir("/data", client, ColonyID, ExecutorPrvKey, proj, true)
+		err = colonies.SyncDir("/data", client, ColonyName, PrvKey, proj, true)
 		CheckError(err)
 
-		snapshotID, err := colonies.CreateSrcSnapshot(client, ColonyID, ExecutorPrvKey, proj)
+		snapshotID, err := colonies.CreateSrcSnapshot(client, ColonyName, PrvKey, proj)
 		CheckError(err)
 
 		log.Debug("Generating function spec")
-		funcSpec := colonies.CreateFuncSpec(ColonyID, proj, snapshotID)
+		funcSpec := colonies.CreateFuncSpec(ColonyName, proj, snapshotID)
 		CheckError(err)
 
-		addedProcess, err := client.Submit(funcSpec, ExecutorPrvKey)
+		addedProcess, err := client.Submit(funcSpec, PrvKey)
 		CheckError(err)
 
 		url := DashboardURL + "/process?processid=" + addedProcess.ID
@@ -62,9 +62,9 @@ var runCmd = &cobra.Command{
 		log.Info("Follow process at " + link)
 
 		if Follow {
-			err = colonies.Follow(client, addedProcess, ExecutorPrvKey, Count)
+			err = colonies.Follow(client, addedProcess, PrvKey, Count)
 			CheckError(err)
-			err = colonies.SyncDir("/result", client, ColonyID, ExecutorPrvKey, proj, false)
+			err = colonies.SyncDir("/result", client, ColonyName, PrvKey, proj, false)
 			CheckError(err)
 		}
 	},
