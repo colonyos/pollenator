@@ -6,8 +6,13 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/colonyos/colonies/pkg/client"
+	"github.com/colonyos/colonies/pkg/core"
 	"github.com/colonyos/pollinator/pkg/build"
+	"github.com/colonyos/pollinator/pkg/colonies"
+	"github.com/colonyos/pollinator/pkg/project"
 	log "github.com/sirupsen/logrus"
+	"gopkg.in/yaml.v2"
 )
 
 func checkIfDirExists(dirPath string) error {
@@ -83,4 +88,29 @@ func CheckError(err error) {
 		log.WithFields(log.Fields{"Error": err, "BuildVersion": build.BuildVersion, "BuildTime": build.BuildTime}).Error(err.Error())
 		os.Exit(-1)
 	}
+}
+
+func SyncAndGenerateFuncSpec(client *client.ColoniesClient) (*core.FunctionSpec, *project.Project) {
+	projectFile := "./project.yaml"
+	projectData, err := ioutil.ReadFile(projectFile)
+	CheckError(err)
+
+	proj := &project.Project{}
+	err = yaml.Unmarshal([]byte(projectData), &proj)
+	CheckError(err)
+
+	// Sync all directories
+	err = colonies.SyncDir("/src", client, ColonyName, PrvKey, proj, true)
+	CheckError(err)
+	err = colonies.SyncDir("/data", client, ColonyName, PrvKey, proj, true)
+	CheckError(err)
+
+	snapshotID, err := colonies.CreateSrcSnapshot(client, ColonyName, PrvKey, proj)
+	CheckError(err)
+
+	log.Debug("Generating function spec")
+	funcSpec := colonies.CreateFuncSpec(ColonyName, proj, snapshotID)
+	CheckError(err)
+
+	return funcSpec, proj
 }

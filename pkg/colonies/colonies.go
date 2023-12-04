@@ -17,7 +17,7 @@ func SyncDir(dir string, client *client.ColoniesClient, colonyName string, execu
 		return err
 	}
 
-	label := "/pollinator/" + proj.ProjectID + dir
+	label := "/pollinator/" + proj.ProjectName + dir
 	syncPlans, err := fsClient.CalcSyncPlans("./cfs"+dir, label, keepLocal)
 	if err != nil {
 		return err
@@ -47,7 +47,7 @@ func SyncDir(dir string, client *client.ColoniesClient, colonyName string, execu
 
 func CreateSrcSnapshot(client *client.ColoniesClient, colonyName string, executorPrvKey string, proj *project.Project) (string, error) {
 	snapshotID := core.GenerateRandomID()
-	snapshot, err := client.CreateSnapshot(colonyName, "/pollinator/"+proj.ProjectID+"/src", snapshotID, executorPrvKey)
+	snapshot, err := client.CreateSnapshot(colonyName, "/pollinator/"+proj.ProjectName+"/src", snapshotID, executorPrvKey)
 	if err != nil {
 		return "", err
 	}
@@ -59,11 +59,11 @@ func CreateSrcSnapshot(client *client.ColoniesClient, colonyName string, executo
 func CreateFuncSpec(colonyName string, project *project.Project, snapshotID string) *core.FunctionSpec {
 	maxRetries := 3
 	env := make(map[string]string)
-	env["PROJECT_DIR"] = "/cfs/" + project.ProjectID
+	env["PROJECT_DIR"] = "/cfs/" + project.ProjectName
 
 	args := make([]interface{}, 0)
 	kwargsArgs := make([]interface{}, 0)
-	kwargsArgs = append(kwargsArgs, "/cfs/"+project.ProjectID+"/src/"+project.Environment.SourceFile)
+	kwargsArgs = append(kwargsArgs, "/cfs/"+project.ProjectName+"/src/"+project.Environment.SourceFile)
 
 	kwargs := make(map[string]interface{}, 1)
 	kwargs["cmd"] = project.Environment.Cmd
@@ -73,17 +73,17 @@ func CreateFuncSpec(colonyName string, project *project.Project, snapshotID stri
 
 	var snapshots []core.SnapshotMount
 	snapshot1 := core.SnapshotMount{
-		Label:       "/pollinator/" + project.ProjectID + "/src",
+		Label:       "/pollinator/" + project.ProjectName + "/src",
 		SnapshotID:  snapshotID,
-		Dir:         "/" + project.ProjectID + "/src",
+		Dir:         "/" + project.ProjectName + "/src",
 		KeepFiles:   false,
 		KeepSnaphot: false}
 
 	snapshots = append(snapshots, snapshot1)
 	var syncdirs []core.SyncDirMount
 	result := core.SyncDirMount{
-		Label:     "/pollinator/" + project.ProjectID + "/result",
-		Dir:       "/" + project.ProjectID + "/result",
+		Label:     "/pollinator/" + project.ProjectName + "/result",
+		Dir:       "/" + project.ProjectName + "/result",
 		KeepFiles: false,
 		ConflictResolution: core.ConflictResolution{
 			OnStart: core.OnStart{KeepLocal: false},
@@ -91,8 +91,8 @@ func CreateFuncSpec(colonyName string, project *project.Project, snapshotID stri
 	syncdirs = append(syncdirs, result)
 
 	data := core.SyncDirMount{
-		Label:     "/pollinator/" + project.ProjectID + "/data",
-		Dir:       "/" + project.ProjectID + "/data",
+		Label:     "/pollinator/" + project.ProjectName + "/data",
+		Dir:       "/" + project.ProjectName + "/data",
 		KeepFiles: true,
 		ConflictResolution: core.ConflictResolution{
 			OnStart: core.OnStart{KeepLocal: false},

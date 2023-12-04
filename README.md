@@ -80,11 +80,8 @@ export COLONYOS_DASHBOARD_URL="..."
 export COLONIES_TLS="true"
 export COLONIES_SERVER_HOST="..."
 export COLONIES_SERVER_PORT="443"
-export COLONIES_SERVER_ID="..."
-export COLONIES_SERVER_PRVKEY="..."
-export COLONIES_COLONY_ID="..."
-export COLONIES_EXECUTOR_ID="..."
-export COLONIES_EXECUTOR_PRVKEY="..."
+export COLONIES_COLONY_NAME="..."
+export COLONIES_PRVKEY="..."
 export AWS_S3_ENDPOINT="..."
 export AWS_S3_ACCESSKEY="..."
 export AWS_S3_SECRETKEY="..."
@@ -132,12 +129,12 @@ print("hostname:", hostname)
 ```
 
 ### Update resource specifications
-To run code on 10 nodes at LUMI, we need to update the **project.yaml** file.
+To run code on 4 nodes at LUMI small CPU partition, we need to update the **project.yaml** file.
 ```yaml
-projectid: 4e3f0f068cdb08f78ba3992bf5ccb9f5eb321125fa696c477eb387d37ab5c15f
+projectname: 4e3f0f068cdb08f78ba3992bf5ccb9f5eb321125fa696c477eb387d37ab5c15f
 conditions:
   executorType: lumi-small-hpcexecutor
-  nodes: 10
+  nodes: 4 
   processesPerNode: 1
   cpu: 1000m
   mem: 1000Mi

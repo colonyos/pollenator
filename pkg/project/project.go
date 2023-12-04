@@ -32,7 +32,7 @@ type Environment struct {
 }
 
 type Project struct {
-	ProjectID   string      `yaml:"projectid"`
+	ProjectName string      `yaml:"projectname"`
 	Conditions  Conditions  `yaml:"conditions"`
 	Environment Environment `yaml:"environment"`
 }
@@ -64,9 +64,9 @@ func GenerateProjectConfig(executorType string) error {
 		SourceFile:   "main.py",
 	}
 
-	projectID := core.GenerateRandomID()
+	projectName := core.GenerateRandomID()
 
-	project.ProjectID = projectID
+	project.ProjectName = projectName
 	project.Conditions = cond
 	project.Environment = env
 
