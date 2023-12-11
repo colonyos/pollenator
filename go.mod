@@ -3,7 +3,7 @@ module github.com/colonyos/pollinator
 go 1.19
 
 require (
-	github.com/colonyos/colonies v1.7.0
+	github.com/colonyos/colonies v1.7.4
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/cobra v1.7.0
 	gopkg.in/yaml.v2 v2.4.0
