@@ -63,7 +63,7 @@ func CreateFuncSpec(colonyName string, project *project.Project, snapshotID stri
 
 	args := make([]interface{}, 0)
 	kwargsArgs := make([]interface{}, 0)
-	kwargsArgs = append(kwargsArgs, "/cfs/"+project.ProjectName+"/src/"+project.Environment.SourceFile)
+	kwargsArgs = append(kwargsArgs, "/cfs/"+project.ProjectName+"/"+snapshotID+"/src/"+project.Environment.SourceFile)
 
 	kwargs := make(map[string]interface{}, 1)
 	kwargs["cmd"] = project.Environment.Cmd
@@ -75,7 +75,7 @@ func CreateFuncSpec(colonyName string, project *project.Project, snapshotID stri
 	snapshot1 := core.SnapshotMount{
 		Label:       "/pollinator/" + project.ProjectName + "/src",
 		SnapshotID:  snapshotID,
-		Dir:         "/" + project.ProjectName + "/src",
+		Dir:         "/" + project.ProjectName + "/" + snapshotID + "/src",
 		KeepFiles:   false,
 		KeepSnaphot: false}
 
