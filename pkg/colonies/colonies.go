@@ -18,6 +18,8 @@ func SyncDir(dir string, client *client.ColoniesClient, colonyName string, execu
 	}
 
 	label := "/pollinator/" + proj.ProjectName + dir
+	log.WithFields(log.Fields{"Dir": dir, "ColonyName": colonyName, "KeepLocal": keepLocal, "Label": label}).Debug("Synchronizing, nothing to do, already synchronized")
+
 	syncPlans, err := fsClient.CalcSyncPlans("./cfs"+dir, label, keepLocal)
 	if err != nil {
 		return err
@@ -66,6 +68,7 @@ func CreateFuncSpec(colonyName string, project *project.Project, snapshotID stri
 	kwargsArgs = append(kwargsArgs, "/cfs/"+project.ProjectName+"/"+snapshotID+"/src/"+project.Environment.SourceFile)
 
 	kwargs := make(map[string]interface{}, 1)
+	kwargs["init-cmd"] = project.Environment.InitCmd
 	kwargs["cmd"] = project.Environment.Cmd
 	kwargs["docker-image"] = project.Environment.DockerImage
 	kwargs["rebuild-image"] = project.Environment.RebuildImage
@@ -76,8 +79,8 @@ func CreateFuncSpec(colonyName string, project *project.Project, snapshotID stri
 		Label:       "/pollinator/" + project.ProjectName + "/src",
 		SnapshotID:  snapshotID,
 		Dir:         "/" + project.ProjectName + "/" + snapshotID + "/src",
-		KeepFiles:   false,
-		KeepSnaphot: false}
+		KeepFiles:   true,
+		KeepSnaphot: true}
 
 	snapshots = append(snapshots, snapshot1)
 	var syncdirs []core.SyncDirMount

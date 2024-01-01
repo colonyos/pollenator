@@ -27,6 +27,7 @@ type GPU struct {
 type Environment struct {
 	DockerImage  string `yaml:"docker"`
 	RebuildImage bool   `yaml:"rebuildImage"`
+	InitCmd      string `yaml:"init-cmd"`
 	Cmd          string `yaml:"cmd"`
 	SourceFile   string `yaml:"source"`
 }
@@ -60,6 +61,7 @@ func GenerateProjectConfig(executorType string) error {
 	env := Environment{
 		DockerImage:  "python:3.12-rc-bookworm",
 		RebuildImage: false,
+		InitCmd:      "pip3 install numpy",
 		Cmd:          "python3",
 		SourceFile:   "main.py",
 	}
