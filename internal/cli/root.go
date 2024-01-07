@@ -18,7 +18,7 @@ var ColoniesSkipTLSVerify bool
 var ColoniesUseTLS bool
 var ColonyName string
 var PrvKey string
-var ExecutorType string
+var ExecutorName string
 var Follow bool
 var Count int
 var DashboardURL string

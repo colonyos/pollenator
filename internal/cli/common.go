@@ -50,7 +50,7 @@ func parseEnv() {
 		CheckError(err)
 	}
 
-	ColoniesTLSEnv := os.Getenv("COLONIES_TLS")
+	ColoniesTLSEnv := os.Getenv("COLONIES_SERVER_TLS")
 	if ColoniesTLSEnv == "true" {
 		ColoniesUseTLS = true
 		ColoniesInsecure = false

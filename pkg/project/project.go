@@ -10,13 +10,13 @@ import (
 )
 
 type Conditions struct {
-	ExecutorType     string `yaml:"executorType"`
-	Nodes            int    `yaml:"nodes"`
-	ProcessesPerNode int    `yaml:"processesPerNode"`
-	CPU              string `yaml:"cpu"`
-	Memory           string `yaml:"mem"`
-	Walltime         int    `yaml:"walltime"`
-	GPU              GPU    `yaml:"gpu"`
+	ExecutorNames    []string `yaml:"executorNames"`
+	Nodes            int      `yaml:"nodes"`
+	ProcessesPerNode int      `yaml:"processesPerNode"`
+	CPU              string   `yaml:"cpu"`
+	Memory           string   `yaml:"mem"`
+	Walltime         int      `yaml:"walltime"`
+	GPU              GPU      `yaml:"gpu"`
 }
 
 type GPU struct {
@@ -38,7 +38,7 @@ type Project struct {
 	Environment Environment `yaml:"environment"`
 }
 
-func GenerateProjectConfig(executorType string) error {
+func GenerateProjectConfig(executorNames []string) error {
 	projectFile := "./project.yaml"
 	_, err := os.Stat(projectFile)
 	if err == nil {
@@ -51,7 +51,7 @@ func GenerateProjectConfig(executorType string) error {
 
 	project := &Project{}
 	cond := Conditions{
-		ExecutorType:     executorType,
+		ExecutorNames:    executorNames,
 		Nodes:            1,
 		ProcessesPerNode: 1,
 		CPU:              "1000m",

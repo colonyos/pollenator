@@ -11,8 +11,8 @@ import (
 func init() {
 	rootCmd.AddCommand(newCmd)
 
-	newCmd.Flags().StringVarP(&ExecutorType, "executortype", "e", "", "Executor type")
-	newCmd.MarkFlagRequired("executortype")
+	newCmd.Flags().StringVarP(&ExecutorName, "executorname", "n", "", "Executor type")
+	newCmd.MarkFlagRequired("executorname")
 }
 
 var newCmd = &cobra.Command{
@@ -50,7 +50,7 @@ var newCmd = &cobra.Command{
 
 		CheckError(err)
 
-		err = project.GenerateProjectConfig(ExecutorType)
+		err = project.GenerateProjectConfig([]string{ExecutorName})
 		CheckError(err)
 
 		err = project.GenerateProjectData()

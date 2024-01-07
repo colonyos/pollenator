@@ -110,13 +110,13 @@ func CreateFuncSpec(colonyName string, project *project.Project, snapshotID stri
 		args,
 		kwargs,
 		colonyName,
-		[]string{},
-		project.Conditions.ExecutorType,
+		project.Conditions.ExecutorNames,
+		"container-executor",
 		maxWaitTime,
 		maxExecTime,
 		maxRetries,
 		env,
-		[]string{"test_name2"},
+		[]string{},
 		5,
 		"test_label")
 
@@ -137,7 +137,7 @@ func Follow(client *client.ColoniesClient, process *core.Process, executorPrvKey
 	var lastTimestamp int64
 	lastTimestamp = 0
 	for {
-		logs, err := client.GetLogsByProcessIDSince(process.ID, count, lastTimestamp, executorPrvKey)
+		logs, err := client.GetLogsByProcessSince(process.FunctionSpec.Conditions.ColonyName, process.ID, count, lastTimestamp, executorPrvKey)
 		if err != nil {
 			return err
 		}
