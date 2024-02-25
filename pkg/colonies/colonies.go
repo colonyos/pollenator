@@ -61,11 +61,11 @@ func CreateSrcSnapshot(client *client.ColoniesClient, colonyName string, executo
 func CreateFuncSpec(colonyName string, project *project.Project, snapshotID string) *core.FunctionSpec {
 	maxRetries := 3
 	env := make(map[string]string)
-	env["PROJECT_DIR"] = "/cfs/" + project.ProjectName
+	env["PROJECT_DIR"] = "/cfs/pollinator/" + project.ProjectName
 
 	args := make([]interface{}, 0)
 	kwargsArgs := make([]interface{}, 0)
-	kwargsArgs = append(kwargsArgs, "/cfs/"+project.ProjectName+"/"+snapshotID+"/src/"+project.Environment.SourceFile)
+	kwargsArgs = append(kwargsArgs, "/cfs/pollinator/"+project.ProjectName+"/"+snapshotID+"/src/"+project.Environment.SourceFile)
 
 	kwargs := make(map[string]interface{}, 1)
 	kwargs["init-cmd"] = project.Environment.InitCmd
@@ -78,7 +78,7 @@ func CreateFuncSpec(colonyName string, project *project.Project, snapshotID stri
 	snapshot1 := core.SnapshotMount{
 		Label:       "/pollinator/" + project.ProjectName + "/src",
 		SnapshotID:  snapshotID,
-		Dir:         "/" + project.ProjectName + "/" + snapshotID + "/src",
+		Dir:         "/pollinator/" + project.ProjectName + "/" + snapshotID + "/src",
 		KeepFiles:   true,
 		KeepSnaphot: true}
 
@@ -86,7 +86,7 @@ func CreateFuncSpec(colonyName string, project *project.Project, snapshotID stri
 	var syncdirs []core.SyncDirMount
 	result := core.SyncDirMount{
 		Label:     "/pollinator/" + project.ProjectName + "/result",
-		Dir:       "/" + project.ProjectName + "/result",
+		Dir:       "/pollinator/" + project.ProjectName + "/result",
 		KeepFiles: false,
 		ConflictResolution: core.ConflictResolution{
 			OnStart: core.OnStart{KeepLocal: false},
@@ -95,7 +95,7 @@ func CreateFuncSpec(colonyName string, project *project.Project, snapshotID stri
 
 	data := core.SyncDirMount{
 		Label:     "/pollinator/" + project.ProjectName + "/data",
-		Dir:       "/" + project.ProjectName + "/data",
+		Dir:       "/pollinator/" + project.ProjectName + "/data",
 		KeepFiles: true,
 		ConflictResolution: core.ConflictResolution{
 			OnStart: core.OnStart{KeepLocal: false},
