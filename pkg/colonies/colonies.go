@@ -38,7 +38,7 @@ func SyncDir(dir string, client *client.ColoniesClient, colonyName string, execu
 	}
 
 	for _, syncPlan := range syncPlans {
-		err = fsClient.ApplySyncPlan(colonyName, syncPlan)
+		err = fsClient.ApplySyncPlan(syncPlan)
 		if err != nil {
 			return err
 		}
