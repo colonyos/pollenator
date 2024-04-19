@@ -8,7 +8,7 @@ Execute this code on your **local computer** to execute main.py **remotely on th
 
 ```console
 mkdir test; cd test
-pollinator new -e lumi-small-hpcexecutor
+pollinator new -n lumi-small-hpcexecutor
 echo "print('LUMI Supercomputer says Hi!')" > ./cfs/src/main.py
 pollinator run --follow
 ```
@@ -100,7 +100,7 @@ cd lumi
 First, we need to generate a new Pollinator project.
 
 ```console
-pollinator new -e lumi-standard-hpcexecutor
+pollinator new -n lumi-standard-hpcexecutor
 ```
 
 This will generate a **project.yaml** file and the **src**, **data**, **result** directories. It also generates some sample code in Python. 
