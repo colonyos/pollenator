@@ -5,6 +5,7 @@ import (
 
 	"github.com/colonyos/colonies/pkg/client"
 	"github.com/colonyos/pollinator/pkg/colonies"
+	"github.com/colonyos/pollinator/pkg/tunnel"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
@@ -38,6 +39,12 @@ var runCmd = &cobra.Command{
 
 		log.WithFields(log.Fields{"ProcessID": addedProcess.ID}).Info("Process submitted")
 		log.Info("Follow process at " + link)
+
+		if proj.Tunnel != nil {
+			log.WithFields(log.Fields{"JumpHost": proj.Tunnel.JumpHost, "JumpHostPort": proj.Tunnel.JumpHostPort, "User": proj.Tunnel.User, "SSHKey": proj.Tunnel.SSHKey, "LocalPort": proj.Tunnel.LocalPort, "RemotePort": proj.Tunnel.RemotePort}).Info("Tunneling enabled")
+			tunnel := tunnel.NewTunnel(client, addedProcess.ID, proj.Tunnel.JumpHost, proj.Tunnel.JumpHostPort, proj.Tunnel.User, proj.Tunnel.SSHKey, proj.Tunnel.LocalPort, proj.Tunnel.RemotePort, PrvKey)
+			go tunnel.Start()
+		}
 
 		if Follow {
 			err = colonies.Follow(client, addedProcess, PrvKey, Count)
