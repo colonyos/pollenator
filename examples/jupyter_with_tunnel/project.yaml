@@ -1,0 +1,23 @@
+projectname: jupyter
+conditions:
+  executorNames:
+  - lumi-std 
+  nodes: 1
+  processesPerNode: 1
+  cpu: 1000m
+  mem: 1000Mi
+  walltime: 200 
+  gpu:
+    count: 0
+    name: ""
+environment:
+  docker: enccs/notebook
+  rebuildImage: false
+  cmd: jupyter lab --allow-root --ip 0.0.0.0 --notebook-dir / --NotebookApp.token=secret
+tunnel:
+  user: USER
+  jumpHost: HOST
+  jumpHostPort: 22
+  sshKey: XXX/.ssh/id_lumi_rsa
+  localPort: 38888 
+  remotePort: 8888 

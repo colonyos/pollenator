@@ -32,10 +32,20 @@ type Environment struct {
 	SourceFile   string `yaml:"source"`
 }
 
+type Tunnel struct {
+	User         string `yaml:"user"`
+	JumpHost     string `yaml:"jumpHost"`
+	JumpHostPort int    `yaml:"jumpHostPort"`
+	SSHKey       string `yaml:"sshKey"`
+	LocalPort    int    `yaml:"localPort"`
+	RemotePort   int    `yaml:"remotePort"`
+}
+
 type Project struct {
 	ProjectName string      `yaml:"projectname"`
 	Conditions  Conditions  `yaml:"conditions"`
 	Environment Environment `yaml:"environment"`
+	Tunnel      *Tunnel     `yaml:"tunnel"`
 }
 
 func GenerateProjectConfig(executorNames []string) error {

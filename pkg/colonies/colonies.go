@@ -63,9 +63,13 @@ func CreateFuncSpec(colonyName string, project *project.Project, snapshotID stri
 	env := make(map[string]string)
 	env["PROJECT_DIR"] = "/cfs/pollinator/" + project.ProjectName
 
-	args := make([]interface{}, 0)
 	kwargsArgs := make([]interface{}, 0)
-	kwargsArgs = append(kwargsArgs, "/cfs/pollinator/"+project.ProjectName+"/"+snapshotID+"/src/"+project.Environment.SourceFile)
+	args := make([]interface{}, 0)
+	if project.Environment.SourceFile != "" {
+		kwargsArgs = append(kwargsArgs, "/cfs/pollinator/"+project.ProjectName+"/"+snapshotID+"/src/"+project.Environment.SourceFile)
+	} else {
+		log.WithFields(log.Fields{"ProjectName": project.ProjectName}).Warning("Ingoring source file, not provided")
+	}
 
 	kwargs := make(map[string]interface{}, 1)
 	kwargs["init-cmd"] = project.Environment.InitCmd
@@ -136,6 +140,7 @@ func Follow(client *client.ColoniesClient, process *core.Process, executorPrvKey
 	log.WithFields(log.Fields{"ProcessID": process.ID}).Debug("Printing logs from process")
 	var lastTimestamp int64
 	lastTimestamp = 0
+	started := false
 	for {
 		logs, err := client.GetLogsByProcessSince(process.FunctionSpec.Conditions.ColonyName, process.ID, count, lastTimestamp, executorPrvKey)
 		if err != nil {
@@ -145,6 +150,13 @@ func Follow(client *client.ColoniesClient, process *core.Process, executorPrvKey
 		process, err := client.GetProcess(process.ID, executorPrvKey)
 		if err != nil {
 			return err
+		}
+
+		if !started {
+			if process.State == core.RUNNING {
+				log.WithFields(log.Fields{"ProcessID": process.ID}).Info("Process started")
+			}
+			started = true
 		}
 
 		if len(logs) == 0 {
