@@ -24,18 +24,13 @@ INFO[0007] Process finished successfully   ProcessID=4ca07ca99b670e4758fd587bab6
 # What is Pollinator?
 * **Pollinator** is a tool built ontop of ColonyOS designed to simplify and streamline job execution across platforms, e.g executing AI computations on HPC, Edge, or Kubernetes platforms. **Pollinator** is also designed to ensure uniform and portable workload execution across these diverse platforms.
 
-* **Pollinator** uses [ColonyOS](https://colonyos.io) to create and run batch jobs over a network of 
-loosely-connected and geographically disperse so-called **Executors**. These Executors, after receiving jobs assignment from a Colonies server, transform the job 
-instructions (so-called *function specifications*) into a format that is compatible with the underlying system they're connected to, 
-whether it's Kubernetes (K8s) or Slurm. On HPC systems, Docker containers are for example automatically converted to Singularity containers.
+* **Pollinator** uses [ColonyOS](https://colonyos.io) to run batch jobs over a network of 
+loosely-connected and geographically disperse **Executors**. These Executors, after receiving jobs assignment from a Colonies server, transform the job 
+instructions (so-called *function specifications*) into a format that is compatible with the underlying system they're connected to, whether it's Kubernetes (K8s) or Slurm. On HPC systems, Docker containers are automatically converted to Singularity containers.
 
-* **Pollinator** significantly simplifies interactions with HPC or Kubernetes systems. For instance, it completely eliminates the need to manually
-login to HPC nodes to run Slurm jobs. It seamlessly synchronizes and transfers data from the 
-user's local filesystem to remote Executors, offering the convenience of a local development environment while harnessing powerful supercomputers 
-and cloud platforms.
+* **Pollinator** significantly simplifies interactions with HPC or Kubernetes systems. For instance, it completely eliminates the need to manually login to HPC nodes to run Slurm jobs. It seamlessly synchronizes and transfers data from the user's local filesystem to remote Executors, offering the convenience of a local development environment while harnessing powerful supercomputers and cloud platforms.
 
-*  With **Pollinator**, users are no longer required to have in-depth knowledge of Slurm or Kubernetes systems, speeding up development and making 
-powerful HPC systems available to more people.
+*  With **Pollinator**, users are no longer required to have in-depth knowledge of Slurm or Kubernetes systems, speeding up development and making powerful HPC systems available to more people.
 
 ![Architecture](docs/arch.png)
 
