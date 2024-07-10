@@ -8,7 +8,7 @@ Execute this code on your **local computer** to execute main.py **remotely on th
 
 ```console
 mkdir test; cd test
-pollinator new -e lumi-small-hpcexecutor
+pollinator new -n lumi-std
 echo "print('LUMI Supercomputer says Hi!')" > ./cfs/src/main.py
 pollinator run --follow
 ```
@@ -22,14 +22,9 @@ INFO[0007] Process finished successfully   ProcessID=4ca07ca99b670e4758fd587bab6
 ```
 
 # What is Pollinator?
-* **Pollinator** is a [Platform-as-a-Service](https://en.wikipedia.org/wiki/Platform_as_a_service) (PaaS) tool, 
-much like [Heroku](https://www.heroku.com), 
-but uses broker-based orchestration to execute containers across platforms. 
-While Heroku mainly targets deployment of web applications 
-in the Cloud, Pollinator is designed to simplify and streamline job execution across platforms, e.g executing AI computations on 
-HPC, Edge, or Kubernetes platforms. **Pollinator** is also designed to ensure uniform workload execution across these diverse platforms.
+* **Pollinator** is a tool built ontop of ColonyOS designed to simplify and streamline job execution across platforms, e.g executing AI computations on HPC, Edge, or Kubernetes platforms. **Pollinator** is also designed to ensure uniform and portable workload execution across these diverse platforms.
 
-* **Pollinator** is based on [ColonyOS](https://colonyos.io), and can create and run batch jobs over a network of 
+* **Pollinator** uses [ColonyOS](https://colonyos.io) to create and run batch jobs over a network of 
 loosely-connected and geographically disperse so-called **Executors**. These Executors, after receiving jobs assignment from a Colonies server, transform the job 
 instructions (so-called *function specifications*) into a format that is compatible with the underlying system they're connected to, 
 whether it's Kubernetes (K8s) or Slurm. On HPC systems, Docker containers are for example automatically converted to Singularity containers.
@@ -100,7 +95,7 @@ cd lumi
 First, we need to generate a new Pollinator project.
 
 ```console
-pollinator new -e lumi-standard-hpcexecutor
+pollinator new -n lumi-std
 ```
 
 This will generate a **project.yaml** file and the **src**, **data**, **result** directories. It also generates some sample code in Python. 
@@ -133,7 +128,8 @@ To run code on 4 nodes at LUMI small CPU partition, we need to update the **proj
 ```yaml
 projectname: 4e3f0f068cdb08f78ba3992bf5ccb9f5eb321125fa696c477eb387d37ab5c15f
 conditions:
-  executorType: lumi-small-hpcexecutor
+  executorNames:
+  - lumi-std
   nodes: 4 
   processesPerNode: 1
   cpu: 1000m
