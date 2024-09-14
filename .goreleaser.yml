@@ -2,4 +2,8 @@
 builds:
 - 
   main: ./cmd
-  binary: pollinator 
+  binary: pollinator
+  env:
+    - CGO_ENABLED=0
+  ldflags:
+      - "-s -w -X 'main.BuildVersion={{ .Version }}' -X 'main.BuildTime={{ .Date }}'"

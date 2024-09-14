@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 	"strconv"
+	"strings"
 
 	"github.com/colonyos/colonies/pkg/client"
 	"github.com/colonyos/colonies/pkg/core"
@@ -113,4 +114,8 @@ func SyncAndGenerateFuncSpec(client *client.ColoniesClient) (*core.FunctionSpec,
 	CheckError(err)
 
 	return funcSpec, proj
+}
+
+func formatTimestamp(timestamp string) string {
+	return strings.Replace(timestamp, "T", " ", 1)
 }
